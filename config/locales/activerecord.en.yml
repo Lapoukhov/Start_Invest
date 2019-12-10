@@ -1,0 +1,23 @@
+en:
+  activerecord:
+    models:
+      project: 'Project'
+    attributes:
+      project:
+        title: 'Name'
+        theme: 'Theme'
+        description: 'Description'
+        money: 'Money'
+        collected_money: 'Collected money'
+        target_amount: 'Target amount'
+        date: 'End date'
+        all_tags: 'Tags'
+        fon_image: 'Background image'
+        author: 'Author'
+        category_id: 'Category'
+        video: 'Video'
+      category:
+        name: 'Name'
+    errors:
+      messages:
+        blank: 'cannot be empty'

@@ -1,0 +1,20 @@
+<div class="col-md-10">
+  <div class="container">
+    <h1 class="project-title"><%= t('.title') %></h1>
+  </div>
+
+  <div class="tagsbar">
+    <% tttag_cloud(Tttag.counts) do |tttag| %>
+      <%= link_to tttag.name, tttag_path(tttag.name) %>
+    <% end %>
+  </div>
+
+  <section id="projects">
+    <%= render @projects %>
+  </section>
+
+  <%= will_paginate @projects, renderer: 'BootstrapPaginationHelper::LinkRenderer' %>
+</div>
+<div class="col-md-2">
+  <%= render 'shared/submenu' %>
+</div>

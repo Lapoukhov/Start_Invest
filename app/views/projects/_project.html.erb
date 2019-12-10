@@ -1,0 +1,42 @@
+<article class="project <%= 'inactive' if project.collected_money.to_i >= project.money.to_i %>">
+  <section class="project-head">
+    <h2><%= link_to project.title, project_path(project) %></h2>
+    <section>
+      <%= project.rating %> / 5<img class="star" src="/images/star1.png">
+    </section>
+    <small>
+      <time><%= project.created_at.to_date.strftime("%d %B, %Y") %></time>
+
+      <% if project.category.present? %>
+        |
+        <strong><%= link_to project.category.name, project.category %></strong>
+      <% end %>
+
+      <% if user_signed_in? && (current_user.email == project.author || current_user.admin?) %>
+        |
+        <%= link_to t('projects.project.edit'), edit_project_path(project) %>
+        |
+        <%= link_to t('projects.project.delete'), project_path(project), method: :delete, data: {confirm: t('projects.project.are_you_sure')} %>
+      <% end %>
+
+    </small>
+  </section>
+
+  <section class="project-tags">
+    <%= raw project.tttags.map(&:name).map{ |t| link_to t, tttag_path(t), class: 'tag tag-primary' }.join(' ') %>
+  </section>
+
+  <%= image_tag project.image.url(:large), class: 'img-thumbnail thumb' if project.image? %>
+
+  <div class="box">
+    <section class="project-description index-description">
+      <%= project.description.html_safe %>
+    </section>
+  </div>
+
+  <div class="dots">...</div>
+
+  <div class="div-progress-bar">
+    <progress class="progress-index" value="<%= project.collected_money %>" max="<%= project.money %>"><%= t('activerecord.attributes.project.target_amount') %>: <%= project.money %> $</progress>
+  </div>
+</article>

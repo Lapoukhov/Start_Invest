@@ -1,0 +1,17 @@
+<div class="container">
+  <h1 class="project-title"><%= @tttag.name %></h1>
+</div>
+
+<div class="tagsbar">
+  <% tttag_cloud(Tttag.counts) do |tttag| %>
+    <%= link_to tttag.name, tttag_path(tttag.name) %>
+  <% end %>
+</div>
+
+<% if @tttag.projects.empty?  %>
+  <h2><%= t('.no_projects') %></h2>
+<% else %>
+  <section id="projects">
+    <%= render @tttag.projects %>
+  </section>
+<% end %>

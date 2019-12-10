@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>StartInvest</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div class="container navstyle">
+      <nav class="navbar navbar-light bg-faded">
+        <ul class="nav navbar-nav nav-menu">
+          <li class="nav-item active">
+            <%= link_to t('.home'), href="/#{(I18n.locale == :ru) ? "ru" : "en"}", class: "nav-link"%>
+          </li>
+          <li class="nav-item">
+            <%= link_to t('.all_projects'), projects_path, class: "nav-link"%>
+          </li>
+          <%= link_to t('.new_project'), new_project_path, class: 'btn btn-outline-primary btn-new-project' %>
+        </ul>
+        <ul class="nav navbar-nav nav-menu">
+          <% if user_signed_in? %>
+            <% if current_user.admin? %>
+              <li class="nav-item active">
+                <%= link_to t('.admin_cabinet'), href="#{(I18n.locale == :ru) ? "/ru" : "/en"}/projects/account", class: "nav-link nav-account"%>
+              </li>
+            <% else %>
+              <li class="nav-item active">
+                <%= link_to t('.personal_cabinet'), href="#{(I18n.locale == :ru) ? "/ru" : "/en"}/projects/account", class: "nav-link nav-account"%>
+              </li>
+            <% end %>
+            <li class="nav-item active">
+              <%= link_to t('.sign_out'), destroy_user_session_path, method: :delete, class: "nav-link"%>
+            </li>
+          <% else %>
+            <li class="nav-item active">
+              <%= link_to t('.sign_in'), new_user_session_path, class: "nav-link"%>
+            </li>
+            <li class="nav-item active">
+              <%= link_to t('.sign_up'), new_user_registration_path, class: "nav-link"%>
+            </li>
+          <% end %>
+          <li class="nav-item locale-ru<%= " active" if I18n.locale == :ru %>">
+            <%= link_to "Рус", { locale: :ru }, class: "nav-link" %>
+          </li>
+          <li class="nav-item locale-en<%= " active" if I18n.locale == :en %>">
+            <%= link_to "En", { locale: :en }, class: "nav-link" %>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="container allprojects">
+      <div class="row">
+        <div class="col-md-12">
+          <% flash.each do |name, message| %>
+            <div class="alert <%= bootstrap_class_for(name) %>">
+              <%= message %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="row">
+        <%= yield %>
+      </div>
+    </div>
+
+    <footer class="page-footer font-small stylish-color-dark pt-4">
+      <div class="container text-center text-md-left">
+        <div class="row">
+          <div class="col-md-4 col-lg-4 col-xl-4 mb-4">
+            <h6 class="text-uppercase font-weight-bold">StartInvest</h6>
+            <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+            <p><%= t('.footer_text') %></p>
+          </div>
+          <hr class="clearfix w-100 d-md-none">
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <h6 class="text-uppercase font-weight-bold"><%= t('.menu') %></h6>
+            <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+            <p>
+              <%= link_to t('.home'), href="/#{(I18n.locale == :ru) ? "ru" : "en"}", class: "dark-grey-text"%>
+            </p>
+            <p>
+              <%= link_to t('.all_projects'), projects_path, class: "dark-grey-text"%>
+            </p>
+            <p>
+              <%= link_to t('.new_project'), new_project_path, class: "dark-grey-text" %>
+            </p>
+            <p>
+              <%= link_to "Рус", { locale: :ru }, class: "dark-grey-text" %> | <%= link_to "En", { locale: :en }, class: "dark-grey-text" %>
+            </p>
+          </div>
+          <hr class="clearfix w-100 d-md-none">
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <h6 class="text-uppercase font-weight-bold"><%= t('.contact') %></h6>
+            <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+            <p>
+              <%= t('.address') %>: New York, NY 10012, US</p>
+            <p>
+              <%= t('.mail') %>: start.invest@gmail.com</p>
+            <p>
+              <%= t('.phone') %>: + 01 234 567 88</p>
+            <p>
+              <%= t('.phone') %>: + 01 234 567 89</p>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <ul class="list-unstyled list-inline text-center py-2">
+        <li class="list-inline-item">
+          <h5 class="mb-1"><%= t('.free_reg') %></h5>
+        </li>
+        <li class="list-inline-item">
+          <%= link_to t('.submit_sign_up'), new_user_registration_path, class: "btn btn-info btn-rounded btn-footer btn-lg"%>
+        </li>
+      </ul>
+      <div class="footer-copyright text-center py-3">© 2019 Copyright:
+        <a> StartInvest</a>
+      </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,160 @@
+<article class="project-info">
+  <section class="project-head">
+    <h1><%= @project.title %></h1>
+    <small>
+      <time><%= @project.created_at.to_date.strftime("%d %B, %Y") %></time>
+
+      <% if @project.category.present? %>
+        |
+        <strong><%= link_to @project.category.name, @project.category %></strong>
+      <% end %>
+
+      <% if check_user %>
+        |
+        <%= link_to t('.edit'), edit_project_path(@project) %>
+        |
+        <%= link_to t('.delete'), project_path(@project), method: :delete, data: {confirm: t('.are_you_sure')} %>
+      <% end %>
+    </small>
+
+    <h5 class="rating"><%= t('.rating') %></h5>
+    <section>
+      <%= @project.rating %> / 5<img class="star" src="/images/star1.png">
+    </section>
+    <% if user_signed_in? %>
+      <%= form_for @project, html: { multipart: true} do |f| %>
+        <div class="form-group last-rating">
+          <%= f.text_field :last_rating, class: 'form-control' %>
+        </div>
+        <div class="form-group last-amount">
+          <%= f.submit t('.submit_rating'), class: 'btn btn-secondary' %>
+        </div>
+      <% end %>
+
+  <% end %>
+  </section>
+
+  <h5 class="project-menu"><%= t('activerecord.attributes.project.theme') %></h5>
+  <section class="project-theme">
+    <%= @project.theme %>
+  </section>
+
+  <h5 class="project-menu"><%= t('activerecord.attributes.project.all_tags') %></h5>
+  <section class="project-tags">
+    <%= @project.all_tags %>
+  </section>
+
+  <section class="project-image">
+    <%= image_tag @project.image.url(:large), class: 'img-show' if @project.image? %>
+  </section>
+
+  <h5 class="project-menu"><%= t('activerecord.attributes.project.description') %></h5>
+  <section class="project-description">
+    <%= @project.description.html_safe %>
+  </section>
+
+  <h5 class="project-menu"><%= t('activerecord.attributes.project.video') %></h5>
+  <section class="project-video">
+    <iframe width="560" height="315" src="<%= @project.video %>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  </section>
+
+  <h5 class="project-menu"><%= t('activerecord.attributes.project.money') %></h5>
+  <div class="money">
+  <section class="project-money collected-money">
+    <%= t('activerecord.attributes.project.collected_money') %>: <%= @project.collected_money %> $
+  </section>
+  <section class="project-money target-amount">
+    <%= t('activerecord.attributes.project.target_amount') %>: <%= @project.money %> $
+  </section>
+  </div>
+
+  <div>
+    <progress value="<%= @project.collected_money %>" max="<%= @project.money %>"></progress>
+  </div>
+
+  <% if @project.collected_money.to_i < @project.money.to_i && user_signed_in? %>
+    <%= form_for @project, html: { multipart: true} do |f| %>
+      <div class="form-group last-amount">
+        <%= f.text_field :last_amount, class: 'form-control' %>
+      </div>
+      <div class="form-group last-amount-dollar">
+      $
+      </div>
+      <div class="form-group last-amount">
+        <%= f.submit t('.back_this_project'), class: 'btn btn-secondary' %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <div class="row services-2 bonus-div-12">
+  <div class="col-sm-6 bonus-div-6">
+  <h3 class="project-menu bonus-menu"><%= t('.all_bonuses') %></h3>
+    <div>
+    <% @project.bonus.each do |bonus| %>
+      <div class="bonus">
+        <h5><%= bonus.name %></h5>
+        <p><%= bonus.description %></p>
+        <p><strong><%= bonus.sum %> $</strong></p>
+        <%= link_to t('.select_bonus'), href="#{(I18n.locale == :ru) ? "/ru" : "/en"}/projects/account", class: 'btn btn-warning' %>
+      </div>
+    <% end %>
+    </div>
+  </div>
+  <% if user_signed_in? && current_user.email == @project.author %>
+    <div class="col-sm-6 bonus-div-6">
+    <h3 class="project-menu bonus-menu"><%= t('.add_bonus') %></h3>
+    <%= form_for([@project, @project.bonus.build]) do |f| %>
+      <p>
+        <%= t('.name_bonus') %><br>
+        <%= f.text_field(:name, {:class => 'form-control'}) %>
+      </p>
+      <p>
+        <%= t('.description_bonus') %><br>
+        <%= f.text_area(:description, {:class => 'form-control'}) %>
+      </p>
+      <p>
+        <%= t('.sum_bonus') %> ($)<br>
+        <%= f.text_field(:sum, {:class => 'form-control'}) %>
+      </p>
+      <p id="submit">
+        <%= f.submit("#{t('.add_bonus')}" , {:class => 'btn btn-warning'}) %>
+      </p>
+    <% end %>
+    </div>
+  <% end %>
+  </div>
+
+  <h3 class="project-menu"><%= t('.all_comment') %></h3>
+  <div id="comments">
+    <% @project.comments.each do |comment| %>
+      <div class="alert alert-light">
+        <p><strong><%= comment.username %></strong>: <%= comment.body %></p>
+      </div>
+    <% end %>
+  </div>
+  <% if user_signed_in? %>
+    <h3 class="project-menu"><%= t('.add_comment') %></h3>
+    <%= form_for([@project, @project.comments.build]) do |f| %>
+      <p>
+        <%= t('.user_comment') %><br>
+        <%= text_field_tag(:username, "#{current_user.email}", class: 'form-control', name: "comment[username]", :readonly => true) %>
+      </p>
+      <p>
+        <%= t('.text_comment') %><br>
+        <%= f.text_area(:body, {:class => 'form-control'}) %>
+      </p>
+      <p id="submit">
+        <%= f.submit("#{t('.add_comment_btn')}" , {:class => 'btn btn-warning btn-comment'}) %>
+      </p>
+    <% end %>
+  <% end %>
+
+  <h5 class="project-menu"><%= t('activerecord.attributes.project.date') %></h5>
+  <section class="project-date">
+    <%= @project.date %>
+  </section>
+
+  <section class="project-back">
+    <%= link_to t('common.back'), :back, class: 'btn btn-outline-secondary' %>
+  </section>
+</article>

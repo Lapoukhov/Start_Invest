@@ -1,0 +1,65 @@
+<% if current_user.admin? %>
+  <h1 class="project-title"><%= t('.admin') %></h1>
+  <hr>
+  <%= link_to t('.set_up_categories'), categories_path, class: 'btn btn-secondary btn-account' %>
+  <%= link_to t('.registered_users'), users_path, class: 'btn btn-secondary btn-account' %>
+  <hr>
+<% end %>
+
+<h1 class="project-title"><%= t('.account_data') %></h1>
+
+<div class="form-group account-data">
+  <h5><%= t('.mail') %></h5>
+  <%= text_field_tag(:project_author, "#{current_user.email}", class: 'form-control', name: "project[author]", :readonly => true) %>
+</div>
+<div class="form-group account-data">
+  <h5><%= t('.date_of_creation') %></h5>
+  <%= text_field_tag(:user_created_at, "#{current_user.created_at.to_date.strftime("%d %B, %Y")}", class: 'form-control', name: "user[created_at]", :readonly => true) %>
+</div>
+
+<section id="projects">
+<h1 class="project-title"><%= t('.my_projects') %></h1>
+<% @projects.each do |project| %>
+  <% if user_signed_in? && current_user.email == project.author %>
+    <article class="project account_project">
+      <section class="project-head">
+        <h2><%= link_to project.title, project_path(project) %></h2>
+        <small>
+          <time><%= project.created_at.to_date.strftime("%d %B, %Y") %></time>
+
+          <% if project.category.present? %>
+            |
+            <strong><%= link_to project.category.name, project.category %></strong>
+          <% end %>
+
+          <% if user_signed_in? && current_user.email == project.author %>
+            |
+            <%= link_to t('.edit'), edit_project_path(project) %>
+            |
+            <%= link_to t('.delete'), project_path(project), method: :delete, data: {confirm: t('.are_you_sure')} %>
+          <% end %>
+
+        </small>
+      </section>
+
+      <section class="project-tags">
+        <%= raw project.tttags.map(&:name).map{ |t| link_to t, tttag_path(t), class: 'tag tag-primary' }.join(' ') %>
+      </section>
+
+      <section class="account_section">
+        <%= image_tag project.image.url(:large), class: 'img-thumbnail thumb' if project.image? %>
+        <section class="project-money">
+          <h6><%= t('activerecord.attributes.project.money') %></h6>
+          <%= project.money %>
+        </section>
+
+        <section class="project-date">
+          <h6><%= t('activerecord.attributes.project.date') %></h6>
+          <%= project.date %>
+        </section>
+      </section>
+    </article>
+  <% end %>
+<% end %>
+  <h1 class="project-title"><%= t('.my_bonuses') %></h1>
+</section>

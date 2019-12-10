@@ -1,0 +1,142 @@
+en:
+  common:
+    errors: 'You have errors'
+    back: 'Back'
+  will_paginate:
+    previous_label: '&larr;'
+    next_label: '&rarr;'
+  projects:
+    index:
+      title: 'All projects'
+    new:
+      title: 'New project'
+      submit: 'Create project'
+    edit:
+      title: 'Edit project'
+      submit: 'Edit project'
+      not_author: 'You are not the author of the project!'
+    project:
+      edit: 'Edit'
+      delete: 'Delete'
+      are_you_sure: 'Are you sure?'
+    account:
+      admin: 'Administrator'
+      set_up_categories: 'Setting up categories'
+      registered_users: 'Registered users'
+      account_data: 'Account data'
+      mail: 'Mail'
+      date_of_creation: 'Date of creation'
+      my_projects: 'My projects'
+      edit: 'Edit'
+      delete: 'Delete'
+      are_you_sure: 'Are you sure?'
+      my_bonuses: 'My bonuses'
+    show:
+      edit: 'Edit'
+      delete: 'Delete'
+      are_you_sure: 'Are you sure?'
+      back_this_project: 'Back this project'
+      all_comment: 'All comments'
+      add_comment: 'Add a comment'
+      user_comment: 'Username'
+      text_comment: 'Comment text'
+      add_comment_btn: 'To send'
+      all_bonuses: 'All bonuses'
+      add_bonus: 'Add bonus'
+      name_bonus: 'Bonus name'
+      description_bonus: 'Bonus description'
+      sum_bonus: 'Sum'
+      select_bonus: 'Select this bonus'
+      rating: 'Rating'
+      submit_rating: 'Submit rating'
+  categories:
+    index:
+      title: 'Setting up categories'
+      new: 'New category'
+      name: 'Name'
+      edit: 'Edit'
+      delete: 'Delete'
+      are_you_sure: 'Are you sure?'
+    new:
+      title: 'New category'
+    edit:
+      title: 'Edit category'
+    form:
+      submit: '%{action} category'
+      create: 'Create'
+      edit: 'Edit'
+  users:
+    index:
+      title: 'User list'
+      mail: 'Mail'
+      admin: 'Administrator'
+  tttags:
+    show:
+      no_projects: 'No projects'
+  pages:
+    index_home:
+      title: 'Create your project on StartInvest'
+      title_2: 'Find funding for your company'
+      new_project: 'New project'
+      start_invest_text: 'The first and largest crowdfunding platform, where entrepreneurs, artists and
+      other creative entrepreneurs can raise money to implement their good ideas and projects thanks to
+      financial support from individuals in their own and new networks.'
+      startup: 'Startup'
+      startup_text: 'We will help you find hundreds of private investors from around the world who are ready to support your startup.
+                     We will check your idea for viability and help with the design of the presentation and financial plan, if necessary!'
+      investor: 'Investor'
+      investor_text: 'We will take the risk of project evaluation, carefully analyze everything
+                      and make a rating of projects! You can invest tiny amounts (from 10 US dollars equivalent) in one or several projects at once!
+                      And you will always have time to think!'
+      about_us: 'About us'
+      what_is_crowdfunding: 'What is crowdfunding?'
+      about_us_text: 'StartInvest is the largest Russian crowdfunding platform and one of the first
+      Internet-based public finance services in the country. At StartInvest you can raise funds for
+      creative, social, technological projects, small business, as well as civic initiatives and charity.
+      The platform works on the principle of a full-cycle agency, provides a platform for hosting projects,
+      and also helps create and promote crowd-based campaigns.'
+      what_is_crowdfunding_text: 'Crowdfunding (from the English. Crowdfunding) is a method of
+      collective financing of projects, in which money for the creation of a new product comes
+      from its end users. Crowdfunding gives a chance to thoroughly explore and expand the audience,
+      learn its needs and test the idea. Crowdfunding provides an opportunity to support the author
+      of the project, to become a co-producer of a new album or film, to contribute to a new undertaking,
+      receiving unique rewards for participation.       And you can also communicate directly with people
+      whose work, social or business ideas interest you.'
+      partners: 'Partners'
+  layouts:
+    application:
+      home: 'Home'
+      all_projects: 'All projects'
+      new_project: 'New project'
+      admin_cabinet: "Administrator's Cabinet"
+      personal_cabinet: 'Personal cabinet'
+      sign_out: 'Sign out'
+      sign_in: 'Sign in'
+      sign_up: 'Sign up'
+      free_reg: 'Register for free'
+      contact: 'Contact'
+      menu: 'Menu'
+      submit_sign_up: 'SIGN UP'
+      address: 'Address'
+      mail: 'Mail'
+      phone: 'Phone'
+      footer_text: 'More than a crowdfunding platform, StartInvest offers services and resources from key partners to empower entrepreneurs throughout the life of their project.
+                    StartInvest is a launchpad for entrepreneurial ideas.'
+  shared:
+    submenu:
+      title: 'Categories'
+  devise:
+    sessions:
+      new:
+        title: 'Log in'
+        submit: 'Log in'
+    registrations:
+      new:
+        title: 'Sign up'
+        submit: 'Sign up'
+  no_access: 'You do not have permission to access this page.'
+  category_created: 'Category created'
+  category_not_created: 'Category not created'
+  category_updated: 'Category updated'
+  category_not_updated: 'Category not_updated'
+  category_deleted: 'Category deleted'
